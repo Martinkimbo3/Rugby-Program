@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-Week Pre-Season Rugby Strength Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #27ae60;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .intro {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .week-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .week-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .week-btn:hover {
+            background-color: #2980b9;
+        }
+        .week-btn.active {
+            background-color: #27ae60;
+        }
+        .week-container {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .week-container.active {
+            display: block;
+        }
+        .phase-header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .day-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .exercise-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .set-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .sets-container {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .set-row {
+            display: grid;
+            grid-template-columns: 60px 100px 20px 80px;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        .weight-input, .reps-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .reps-input {
+            background-color: #f8f9fa;
+        }
+        .notes {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .save-load-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .save-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+        .load-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        .print-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        @media print {
+            .save-load-section, .week-nav {
+                display: none;
+            }
+            .week-container {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+        @media (max-width: 768px) {
+            .set-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>6-Week Pre-Season Rugby Strength Program</h1>
+        <p>Progressive Overload Training System</p>
+    </div>
+
+    <div class="intro">
+        <h2>Program Overview</h2>
+        <p><strong>Goal:</strong> Build functional strength, power, and resilience for rugby</p>
+        <p><strong>Structure:</strong> 3 training days per week (Monday/Wednesday/Friday)</p>
+        
+        <h3>Training Phases:</h3>
+        <ul>
+            <li><strong>Weeks 1-2:</strong> Foundation Phase (8-12 reps) - Focus on form and volume</li>
+            <li><strong>Weeks 3-4:</strong> Strength Phase (4-6 reps) - Increase intensity</li>
+            <li><strong>Weeks 5-6:</strong> Power Phase (3-5 reps) - Peak power and taper</li>
+        </ul>
+    </div>
+
+    <div class="save-load-section">
+        <button class="btn save-btn" onclick="saveProgress()">💾 Save Progress</button>
+        <button class="btn load-btn" onclick="loadProgress()">📂 Load Progress</button>
+        <button class="btn print-btn" onclick="window.print()">🖨️ Print Program</button>
+    </div>
+
+    <div class="week-nav">
+        <button class="week-btn active" onclick="showWeek(1)">Week 1</button>
+        <button class="week-btn" onclick="showWeek(2)">Week 2</button>
+        <button class="week-btn" onclick="showWeek(3)">Week 3</button>
+        <button class="week-btn" onclick="showWeek(4)">Week 4</button>
+        <button class="week-btn" onclick="showWeek(5)">Week 5</button>
+        <button class="week-btn" onclick="showWeek(6)">Week 6</button>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-container active" id="week1">
+        <div class="phase-header">
+            <h2>WEEK 1 - Foundation Phase</h2>
+            <p>Focus on form and establishing baseline weights</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-info">4 sets x 8 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-container" id="week2">
+        <div class="phase-header">
+            <h2>WEEK 2 - Foundation Phase (+2.5%)</h2>
+            <p>Slight increase in load while maintaining form</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-info">4 sets x 8 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-container" id="week3">
+        <div class="phase-header">
+            <h2>WEEK 3 - Strength Phase</h2>
+            <p>Lower reps, heavier weights (+5% from Week 2)</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-info">5 sets x 5 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight +5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight +5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight +5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight +5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 5:</span>
+                    <input type="number" placeholder="Weight +5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-container" id="week4">
+        <div class="phase-header">
+            <h2>WEEK 4 - Strength Phase</h2>
+            <p>Peak strength week (+2.5% from Week 3)</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-info">5 sets x 4 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="4" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="4" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="4" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="4" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 5:</span>
+                    <input type="number" placeholder="Weight +2.5%" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="4" class="reps-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 5 -->
+    <div class="week-container" id="week5">
+        <div class="phase-header">
+            <h2>WEEK 5 - Power Phase</h2>
+            <p>Focus on explosive movement - maintain Week 4 weights</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Box Jumps</span>
+                <span class="set-info">5 sets x 3 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Height (cm)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Height (cm)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Height (cm)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Height (cm)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 5:</span>
+                    <input type="number" placeholder="Height (cm)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat (Speed)</span>
+                <span class="set-info">5 sets x 3 reps @ 70% - EXPLOSIVE</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="70% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="70% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="70% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="70% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 5:</span>
+                    <input type="number" placeholder="70% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 6 -->
+    <div class="week-container" id="week6">
+        <div class="phase-header">
+            <h2>WEEK 6 - Taper/Peak Week</h2>
+            <p>Reduced volume - prepare for season (-10% from peak)</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Maintenance</h3>
+            <div class="exercise-header">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-info">3 sets x 3 reps @ 80%</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="80% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="80% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="80% of max" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Power Clean</span>
+                <span class="set-info">3 sets x 2 reps - Focus on technique</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Moderate weight" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="2" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Moderate weight" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="2" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Moderate weight" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="2" class="reps-input">
+                </div>
+            </div>
+
+            <div class="notes">
+                <h3>Week 6 - Pre-Season Ready!</h3>
+                <ul>
+                    <li>This is a taper week - less is more</li>
+                    <li>Focus on feeling fresh and explosive</li>
+                    <li>Get plenty of sleep and nutrition</li>
+                    <li>You should feel strong, fast, and ready for the season!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function showWeek(weekNumber) {
+        // Hide all weeks
+        var weeks = document.querySelectorAll('.week-container');
+        weeks.forEach(function(week) {
+            week.classList.remove('active');
+        });
+        
+        // Hide all week buttons active state
+        var buttons = document.querySelectorAll('.week-btn');
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected week
+        var selectedWeek = document.getElementById('week' + weekNumber);
+        if (selectedWeek) {
+            selectedWeek.classList.add('active');
+            // Highlight active button
+            buttons[weekNumber - 1].classList.add('active');
+        }
+    }
+    
+    function saveProgress() {
+        alert('Save functionality coming soon! For now, bookmark this page or print your workouts.');
+    }
+    
+    function loadProgress() {
+        alert('Load functionality coming soon! For now, bookmark this page to return to your workouts.');
+    }
+    </script>
+</body>
+</html>
