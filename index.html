@@ -77,25 +77,48 @@
             background-color: #ecf0f1;
             border-radius: 5px;
         }
-        .exercise {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 10px;
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: white;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
             border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         .exercise-name {
             font-weight: bold;
-            color: #2c3e50;
+            font-size: 1.1rem;
         }
-        input[type="number"] {
+        .set-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .sets-container {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .set-row {
+            display: grid;
+            grid-template-columns: 60px 100px 20px 80px;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        .weight-input, .reps-input {
             width: 100%;
             padding: 5px;
             border: 1px solid #bdc3c7;
             border-radius: 3px;
+            text-align: center;
+        }
+        .reps-input {
+            background-color: #f8f9fa;
         }
         .target-weight {
             text-align: center;
@@ -216,87 +239,472 @@
         
         <div class="day-section">
             <h3>Monday - Lower Body Power</h3>
-            <div class="exercise">
+            <div class="exercise-header">
                 <span class="exercise-name">Back Squat</span>
-                <span class="set-rep">4 x 8</span>
-                <input type="number" placeholder="Weight (kg)" id="squat-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+                <span class="set-info">4 sets x 8 reps</span>
             </div>
-            <div class="exercise">
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
                 <span class="exercise-name">Romanian Deadlift</span>
-                <span class="set-rep">4 x 10</span>
-                <input type="number" placeholder="Weight (kg)" id="rdl-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+                <span class="set-info">4 sets x 10 reps</span>
             </div>
-            <div class="exercise">
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
                 <span class="exercise-name">Bulgarian Split Squats</span>
-                <span class="set-rep">3 x 12/leg</span>
-                <input type="number" placeholder="Weight (kg)" id="bss-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+                <span class="set-info">3 sets x 12 reps per leg</span>
             </div>
-            <div class="exercise">
-                <span class="exercise-name">Box Jumps</span>
-                <span class="set-rep">4 x 5</span>
-                <span style="text-align: center;">Height (cm)</span>
-                <span>Actual:</span>
-                <input type="number" placeholder="Height" class="actual-input">
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="12" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="12" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="12" class="reps-input">
+                </div>
             </div>
-            <div class="exercise">
-                <span class="exercise-name">Core Circuit</span>
-                <span class="set-rep">3 rounds</span>
-                <span style="text-align: center;">30s each</span>
-                <span>Actual:</span>
-                <input type="checkbox" style="width: auto;">
+
+            <div class="exercise-header">
+                <span class="exercise-name">Nordic Hamstring Curls</span>
+                <span class="set-info">3 sets x 6-8 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Band assist?" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Band assist?" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Band assist?" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Calf Raises (Single Leg)</span>
+                <span class="set-info">3 sets x 15 reps per leg</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="15" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="15" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/leg" value="15" class="reps-input">
+                </div>
             </div>
         </div>
 
         <div class="day-section">
             <h3>Wednesday - Upper Body Push/Pull</h3>
-            <div class="exercise">
+            <div class="exercise-header">
                 <span class="exercise-name">Bench Press</span>
-                <span class="set-rep">4 x 8</span>
-                <input type="number" placeholder="Weight (kg)" id="bench-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+                <span class="set-info">4 sets x 8 reps</span>
             </div>
-            <div class="exercise">
-                <span class="exercise-name">Bent Over Row</span>
-                <span class="set-rep">4 x 8</span>
-                <input type="number" placeholder="Weight (kg)" id="row-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
             </div>
-            <div class="exercise">
+
+            <div class="exercise-header">
+                <span class="exercise-name">Pendlay Row</span>
+                <span class="set-info">4 sets x 8 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="8" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
                 <span class="exercise-name">Military Press</span>
-                <span class="set-rep">3 x 10</span>
-                <input type="number" placeholder="Weight (kg)" id="press-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+                <span class="set-info">3 sets x 10 reps</span>
             </div>
-            <div class="exercise">
-                <span class="exercise-name">Pull-ups (weighted)</span>
-                <span class="set-rep">4 x 8</span>
-                <input type="number" placeholder="Weight (kg)" id="pullup-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="10" class="reps-input">
+                </div>
             </div>
-            <div class="exercise">
-                <span class="exercise-name">Face Pulls</span>
-                <span class="set-rep">3 x 15</span>
-                <input type="number" placeholder="Weight (kg)" id="face-w1" onchange="calculateAllWeeks()">
-                <span>Actual:</span>
-                <input type="number" placeholder="Done" class="actual-input">
+
+            <div class="exercise-header">
+                <span class="exercise-name">Pull-ups (Weighted)</span>
+                <span class="set-info">4 sets x 6-8 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Added kg" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Added kg" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Added kg" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Added kg" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Band Pull-Aparts</span>
+                <span class="set-info">3 sets x 20 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Band #" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="20" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Band #" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="20" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Band #" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="20" class="reps-input">
+                </div>
             </div>
         </div>
 
         <div class="day-section">
-            <h3>Friday - Full Body Power</h3>
-            <div class="exercise">
+            <h3>Friday - Full Body Power & Conditioning</h3>
+            <div class="exercise-header">
                 <span class="exercise-name">Power Clean</span>
-                <span class="set-rep">5 x 3</span>
+                <span class="set-info">5 sets x 3 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 5:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="3" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Front Squat</span>
+                <span class="set-info">4 sets x 6 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="6" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Push Press</span>
+                <span class="set-info">4 sets x 5 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Trap Bar Deadlift</span>
+                <span class="set-info">3 sets x 5 reps</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps" value="5" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Sled Push/Prowler</span>
+                <span class="set-info">4 sets x 20 meters</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Meters" value="20" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Meters" value="20" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Meters" value="20" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 4:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Meters" value="20" class="reps-input">
+                </div>
+            </div>
+
+            <div class="exercise-header">
+                <span class="exercise-name">Pallof Press (Anti-Rotation)</span>
+                <span class="set-info">3 sets x 12 reps per side</span>
+            </div>
+            <div class="sets-container">
+                <div class="set-row">
+                    <span>Set 1:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/side" value="12" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 2:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/side" value="12" class="reps-input">
+                </div>
+                <div class="set-row">
+                    <span>Set 3:</span>
+                    <input type="number" placeholder="Weight (kg)" class="weight-input">
+                    <span>x</span>
+                    <input type="number" placeholder="Reps/side" value="12" class="reps-input">
+                </div>
+            </div>
+        </div></span>
                 <input type="number" placeholder="Weight (kg)" id="clean-w1" onchange="calculateAllWeeks()">
                 <span>Actual:</span>
                 <input type="number" placeholder="Done" class="actual-input">
