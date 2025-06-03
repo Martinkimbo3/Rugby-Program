@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-Week Pre-Season Rugby Strength Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #27ae60;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .intro {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .week-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .week-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .week-btn:hover {
+            background-color: #2980b9;
+        }
+        .week-btn.active {
+            background-color: #27ae60;
+        }
+        .week-container {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .week-container.active {
+            display: block;
+        }
+        .phase-header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .day-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .exercise {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        .exercise-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+        }
+        .target-weight {
+            text-align: center;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .set-rep {
+            text-align: center;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        .notes {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .save-load-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .save-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+        .load-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        .print-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        @media print {
+            .save-load-section, .week-nav {
+                display: none;
+            }
+            .week-container {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+        @media (max-width: 768px) {
+            .exercise {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .exercise > * {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>6-Week Pre-Season Rugby Strength Program</h1>
+        <p>Progressive Overload Training System</p>
+    </div>
+
+    <div class="intro">
+        <h2>Program Overview</h2>
+        <p><strong>Goal:</strong> Build functional strength, power, and resilience for rugby</p>
+        <p><strong>Structure:</strong> 3 training days per week (Monday/Wednesday/Friday)</p>
+        <p><strong>Progressive Overload:</strong> Automatic weight increases each week</p>
+        
+        <h3>Training Phases:</h3>
+        <ul>
+            <li><strong>Weeks 1-2:</strong> Foundation Phase (8-12 reps) - +2.5% weekly</li>
+            <li><strong>Weeks 3-4:</strong> Strength Phase (4-6 reps) - +5% jump, then +2.5%</li>
+            <li><strong>Weeks 5-6:</strong> Power Phase (3-5 reps) - Maintain/slight reduction</li>
+        </ul>
+        
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Enter your starting weights (in kg) for Week 1</li>
+            <li>The program automatically calculates target weights for all 6 weeks</li>
+            <li>Save your progress using the Save button</li>
+            <li>Track actual weights lifted in the "Actual" column</li>
+        </ol>
+    </div>
+
+    <div class="save-load-section">
+        <button class="btn save-btn" onclick="saveProgress()">💾 Save Progress</button>
+        <button class="btn load-btn" onclick="loadProgress()">📂 Load Progress</button>
+        <button class="btn print-btn" onclick="window.print()">🖨️ Print Program</button>
+    </div>
+
+    <div class="week-nav">
+        <button class="week-btn active" onclick="showWeek(1)">Week 1</button>
+        <button class="week-btn" onclick="showWeek(2)">Week 2</button>
+        <button class="week-btn" onclick="showWeek(3)">Week 3</button>
+        <button class="week-btn" onclick="showWeek(4)">Week 4</button>
+        <button class="week-btn" onclick="showWeek(5)">Week 5</button>
+        <button class="week-btn" onclick="showWeek(6)">Week 6</button>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-container active" id="week1">
+        <div class="phase-header">
+            <h2>WEEK 1 - Foundation Phase</h2>
+            <p>Focus on form and establishing baseline weights</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-rep">4 x 8</span>
+                <input type="number" placeholder="Weight (kg)" id="squat-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Romanian Deadlift</span>
+                <span class="set-rep">4 x 10</span>
+                <input type="number" placeholder="Weight (kg)" id="rdl-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bulgarian Split Squats</span>
+                <span class="set-rep">3 x 12/leg</span>
+                <input type="number" placeholder="Weight (kg)" id="bss-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Box Jumps</span>
+                <span class="set-rep">4 x 5</span>
+                <span style="text-align: center;">Height (cm)</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Height" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Core Circuit</span>
+                <span class="set-rep">3 rounds</span>
+                <span style="text-align: center;">30s each</span>
+                <span>Actual:</span>
+                <input type="checkbox" style="width: auto;">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Wednesday - Upper Body Push/Pull</h3>
+            <div class="exercise">
+                <span class="exercise-name">Bench Press</span>
+                <span class="set-rep">4 x 8</span>
+                <input type="number" placeholder="Weight (kg)" id="bench-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bent Over Row</span>
+                <span class="set-rep">4 x 8</span>
+                <input type="number" placeholder="Weight (kg)" id="row-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Military Press</span>
+                <span class="set-rep">3 x 10</span>
+                <input type="number" placeholder="Weight (kg)" id="press-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Pull-ups (weighted)</span>
+                <span class="set-rep">4 x 8</span>
+                <input type="number" placeholder="Weight (kg)" id="pullup-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Face Pulls</span>
+                <span class="set-rep">3 x 15</span>
+                <input type="number" placeholder="Weight (kg)" id="face-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Friday - Full Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Power Clean</span>
+                <span class="set-rep">5 x 3</span>
+                <input type="number" placeholder="Weight (kg)" id="clean-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Front Squat</span>
+                <span class="set-rep">4 x 6</span>
+                <input type="number" placeholder="Weight (kg)" id="fsquat-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Push Press</span>
+                <span class="set-rep">4 x 6</span>
+                <input type="number" placeholder="Weight (kg)" id="pushpress-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Deadlift</span>
+                <span class="set-rep">3 x 5</span>
+                <input type="number" placeholder="Weight (kg)" id="deadlift-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Farmer's Walk</span>
+                <span class="set-rep">3 x 40m</span>
+                <input type="number" placeholder="Weight/hand (kg)" id="farmers-w1" onchange="calculateAllWeeks()">
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-container" id="week2">
+        <div class="phase-header">
+            <h2>WEEK 2 - Foundation Phase (+2.5%)</h2>
+            <p>Progressive overload begins - maintain form quality</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-rep">4 x 8</span>
+                <span class="target-weight" id="squat-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Romanian Deadlift</span>
+                <span class="set-rep">4 x 10</span>
+                <span class="target-weight" id="rdl-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bulgarian Split Squats</span>
+                <span class="set-rep">3 x 12/leg</span>
+                <span class="target-weight" id="bss-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Box Jumps</span>
+                <span class="set-rep">4 x 5</span>
+                <span style="text-align: center;">Height +5cm</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Height" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Core Circuit</span>
+                <span class="set-rep">3 rounds</span>
+                <span style="text-align: center;">35s each</span>
+                <span>Actual:</span>
+                <input type="checkbox" style="width: auto;">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Wednesday - Upper Body Push/Pull</h3>
+            <div class="exercise">
+                <span class="exercise-name">Bench Press</span>
+                <span class="set-rep">4 x 8</span>
+                <span class="target-weight" id="bench-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bent Over Row</span>
+                <span class="set-rep">4 x 8</span>
+                <span class="target-weight" id="row-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Military Press</span>
+                <span class="set-rep">3 x 10</span>
+                <span class="target-weight" id="press-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Pull-ups (weighted)</span>
+                <span class="set-rep">4 x 8</span>
+                <span class="target-weight" id="pullup-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Face Pulls</span>
+                <span class="set-rep">3 x 15</span>
+                <span class="target-weight" id="face-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Friday - Full Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Power Clean</span>
+                <span class="set-rep">5 x 3</span>
+                <span class="target-weight" id="clean-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Front Squat</span>
+                <span class="set-rep">4 x 6</span>
+                <span class="target-weight" id="fsquat-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Push Press</span>
+                <span class="set-rep">4 x 6</span>
+                <span class="target-weight" id="pushpress-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Deadlift</span>
+                <span class="set-rep">3 x 5</span>
+                <span class="target-weight" id="deadlift-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Farmer's Walk</span>
+                <span class="set-rep">3 x 40m</span>
+                <span class="target-weight" id="farmers-w2-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-container" id="week3">
+        <div class="phase-header">
+            <h2>WEEK 3 - Strength Phase (+5% jump)</h2>
+            <p>Lower reps, higher intensity - focus on power</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-rep">5 x 5</span>
+                <span class="target-weight" id="squat-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Romanian Deadlift</span>
+                <span class="set-rep">4 x 6</span>
+                <span class="target-weight" id="rdl-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bulgarian Split Squats</span>
+                <span class="set-rep">3 x 8/leg</span>
+                <span class="target-weight" id="bss-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Box Jumps</span>
+                <span class="set-rep">5 x 3</span>
+                <span style="text-align: center;">Max height</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Height" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Heavy Carries</span>
+                <span class="set-rep">4 x 20m</span>
+                <span style="text-align: center;">Mixed</span>
+                <span>Actual:</span>
+                <input type="checkbox" style="width: auto;">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Wednesday - Upper Body Push/Pull</h3>
+            <div class="exercise">
+                <span class="exercise-name">Bench Press</span>
+                <span class="set-rep">5 x 5</span>
+                <span class="target-weight" id="bench-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bent Over Row</span>
+                <span class="set-rep">5 x 5</span>
+                <span class="target-weight" id="row-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Military Press</span>
+                <span class="set-rep">4 x 6</span>
+                <span class="target-weight" id="press-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Pull-ups (weighted)</span>
+                <span class="set-rep">4 x 5</span>
+                <span class="target-weight" id="pullup-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Face Pulls</span>
+                <span class="set-rep">3 x 12</span>
+                <span class="target-weight" id="face-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Friday - Full Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Power Clean</span>
+                <span class="set-rep">6 x 2</span>
+                <span class="target-weight" id="clean-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Front Squat</span>
+                <span class="set-rep">5 x 4</span>
+                <span class="target-weight" id="fsquat-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Push Press</span>
+                <span class="set-rep">5 x 4</span>
+                <span class="target-weight" id="pushpress-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Deadlift</span>
+                <span class="set-rep">5 x 3</span>
+                <span class="target-weight" id="deadlift-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Farmer's Walk</span>
+                <span class="set-rep">4 x 30m</span>
+                <span class="target-weight" id="farmers-w3-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-container" id="week4">
+        <div class="phase-header">
+            <h2>WEEK 4 - Strength Phase (+2.5%)</h2>
+            <p>Peak strength week - maximum effort sets</p>
+        </div>
+        
+        <div class="day-section">
+            <h3>Monday - Lower Body Power</h3>
+            <div class="exercise">
+                <span class="exercise-name">Back Squat</span>
+                <span class="set-rep">5 x 4</span>
+                <span class="target-weight" id="squat-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Romanian Deadlift</span>
+                <span class="set-rep">4 x 5</span>
+                <span class="target-weight" id="rdl-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bulgarian Split Squats</span>
+                <span class="set-rep">3 x 6/leg</span>
+                <span class="target-weight" id="bss-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Depth Jumps</span>
+                <span class="set-rep">4 x 3</span>
+                <span style="text-align: center;">40cm box</span>
+                <span>Actual:</span>
+                <input type="checkbox" style="width: auto;">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Prowler Push</span>
+                <span class="set-rep">4 x 20m</span>
+                <span style="text-align: center;">Heavy</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Weight" class="actual-input">
+            </div>
+        </div>
+
+        <div class="day-section">
+            <h3>Wednesday - Upper Body Push/Pull</h3>
+            <div class="exercise">
+                <span class="exercise-name">Bench Press</span>
+                <span class="set-rep">5 x 4</span>
+                <span class="target-weight" id="bench-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Bent Over Row</span>
+                <span class="set-rep">5 x 4</span>
+                <span class="target-weight" id="row-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Military Press</span>
+                <span class="set-rep">4 x 5</span>
+                <span class="target-weight" id="press-w4-target">Target: --kg</span>
+                <span>Actual:</span>
+                <input type="number" placeholder="Done" class="actual-input">
+            </div>
+            <div class="exercise">
+                <span class="exercise-name">Pull-ups (weighted)</span>
+                <span class="set-rep">5 
