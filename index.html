@@ -186,6 +186,27 @@
             }
         }
     </style>
+    <script>
+function showWeek(weekNumber) {
+    // Hide all weeks
+    var weeks = document.querySelectorAll('.week-container');
+    weeks.forEach(function(week) {
+        week.classList.remove('active');
+    });
+    
+    // Hide all week buttons active state
+    var buttons = document.querySelectorAll('.week-btn');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected week
+    document.getElementById('week' + weekNumber).classList.add('active');
+    
+    // Highlight active button
+    buttons[weekNumber - 1].classList.add('active');
+}
+</script>
 </head>
 <body>
     <div class="header">
